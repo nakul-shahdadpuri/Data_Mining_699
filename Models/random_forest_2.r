@@ -9,7 +9,6 @@ library(MASS)
 library(randomForest)
 
 
-#clean_dataset <- read.csv("C:/Users/nakul/Desktop/Boston University/CS699 - Data Mining/Project/clean_dataset.csv", header=TRUE)
 clean_dataset <- read.csv("./Models/clean_dataset.csv", header=TRUE)
 
 

@@ -27,7 +27,7 @@ library(RWeka)
 modelLookup("J48")
 
 set.seed(31)
-# repeat 10-fold cross-validation 5 times
+# repeat 5-fold cross-validation 5 times
 train_control <- trainControl(method = "repeatedcv", number = 5, repeats = 5, 
                               summaryFunction = defaultSummary)
 model <- train(o_bullied ~ ., data = train_data, method = "J48", trControl = train_control)
@@ -37,14 +37,14 @@ test_pred <- predict(model, newdata = test_data)
 confusionMatrix(test_pred, test_data$o_bullied)
 
 #####
-# 1 fold and 5 times
+#With cross validation (10 folds, 5 times)
 #Class 0 TPR = 71.75%
 #Class 1 TPR = 80.98%
 #Accuracy = 76.30%
 #####
 
 #####
-# 5 fold and 5 times
+#With cross validation (5 folds, 5 times)
 #Class 0 TPR = 79.84%
 #Class 1 TPR = 86.59%
 #Accuracy = 83.16%
