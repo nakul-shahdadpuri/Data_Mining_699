@@ -4,20 +4,20 @@ library(caret)
 library(e1071)
 require(caTools)
 
-drug_consumption_cannabis <- read.csv("C:/Users/nakul/Desktop/Boston University/CS699 - Data Mining/lecture 6/drug_consumption_cannabis.csv", header=TRUE)
-df <- drug_consumption_cannabis[,-1]
+clean_dataset <- read.csv("./Models/clean_dataset.csv", header=TRUE)
+table(clean_dataset$o_bullied)
 
 set.seed(123) 
-trainIndex <- createDataPartition(df$C6, p = 0.75, list = FALSE)
+trainIndex <- createDataPartition(clean_dataset$o_bullied, p = 0.75, list = FALSE)
 trainSet <- df[trainIndex, ]
 testSet <- df[-trainIndex, ]
 
 train_data <- trainSet[, -13] 
 
-train_label <- as.factor(ifelse(trainSet$C6 == 1, "Class1", "Class0"))
-test_label_char <- ifelse(testSet$C6 == 1, "Class1", "Class0")  # For prediction comparison
+train_label <- as.factor(ifelse(trainSet$o_bullied == 1, "Class1", "Class0"))
+test_label_char <- ifelse(testSet$o_bullied == 1, "Class1", "Class0")  # For prediction comparison
 test_data <- testSet[, -13]
-test_label <- testSet$C6  
+test_label <- testSet$o_bullied  
 
 
 # Hyperparameter Tuning
