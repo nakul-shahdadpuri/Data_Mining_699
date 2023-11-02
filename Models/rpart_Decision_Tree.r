@@ -20,7 +20,7 @@ decision_tree_model <- rpart(o_bullied ~ ., data = train_data, method = "class",
 rpart.plot(decision_tree_model)
 
 # Make predictions on the test data
-predictions <- predict(decision_tree_model, newdata = test_data, type = "raw")
+predictions <- predict(decision_tree_model, newdata = test_data, type = "class")
 
 # Evaluate the model's performance
 confusion_matrix <- table(predictions, test_data$o_bullied)
