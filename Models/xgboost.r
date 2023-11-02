@@ -4,20 +4,20 @@ library(caret)
 library(e1071)
 require(caTools)
 
-drug_consumption_cannabis <- read.csv("C:/Users/nakul/Desktop/Boston University/CS699 - Data Mining/lecture 6/drug_consumption_cannabis.csv", header=TRUE)
-df <- drug_consumption_cannabis[,-1]
+clean_dataset <- read.csv("C:/Users/nakul/Desktop/Boston University/CS699 - Data Mining/Project/clean_dataset.csv", header=TRUE)
+table(clean_dataset$o_bullied)
 
 set.seed(123) 
-trainIndex <- createDataPartition(df$C6, p = 0.75, list = FALSE)
+trainIndex <- createDataPartition(clean_dataset$o_bullied, p = 0.75, list = FALSE)
 trainSet <- df[trainIndex, ]
 testSet <- df[-trainIndex, ]
 
-train_data <- trainSet[, -13] 
+train_data <- trainSet[, !(names(trainSet) == "o_bullied")]
 
-train_label <- as.factor(ifelse(trainSet$C6 == 1, "Class1", "Class0"))
-test_label_char <- ifelse(testSet$C6 == 1, "Class1", "Class0")  # For prediction comparison
-test_data <- testSet[, -13]
-test_label <- testSet$C6  
+train_label <- as.factor(ifelse(trainSet$o_bullied == 0, "Class0", "Class1"))
+test_label_char <- ifelse(testSet$o_bullied == 0, "Class0", "Class1")  # For prediction comparison
+testSet <- testSet[, !(names(trainSet) == "o_bullied")]
+test_label <- testSet$o_bullied  
 
 
 # Hyperparameter Tuning
@@ -56,10 +56,11 @@ model_caret <- train(
 
 # Predicting with Tuned Model
 preds <- predict(model_caret, newdata = test_data)
-predicted_labels <- ifelse(preds == "Class1", 1, 0)
+predicted_labels <- ifelse(preds == "Class0", 0, 1)
 
 # Testing and Confusion Matrix
 conf_matrix <- table(Predicted = predicted_labels, Actual = test_label)
 print(conf_matrix)
 accuracy <- sum(diag(conf_matrix)) / sum(conf_matrix)
 cat("Accuracy:", accuracy, "\n")
+
