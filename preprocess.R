@@ -6,7 +6,7 @@ colnames(project_dataset)
 
 
 # Removing all columns which are duplicates
-
+ 
 df <- project_dataset[, !duplicated(t(project_dataset))]
 
 # 5 columns were duplicates and thus were removed.
@@ -35,11 +35,13 @@ clean_df <- new_df[ , !(names(new_df) %in% highly_correlated_vars)]
 
 # Using Data Exploration and dropped the following columns which had a disproptionate number of null values
 
-columns_to_drop = c("V2025","V2120","V2121","VS0021","V3033")
+columns_to_drop = c("V2025","V2120","V2121","VS0021","V3033","V2022","V2023","V2026","V2125","V2126B","V2128B","V3020","V3062","V3064", "VS0028", "VS0023")
 df_new <- clean_df[, !(names(clean_df) %in% columns_to_drop)]
 
 colnames(df_new)
 View(df_new)
+
+# Sampling
 
 # Clean Pre proccessed Dataset with 63 columns (reduced from 204)
 write.csv(df_new,"C:/Users/nakul/Desktop/Boston University/CS699 - Data Mining/Project/clean_dataset.csv", row.names=FALSE)

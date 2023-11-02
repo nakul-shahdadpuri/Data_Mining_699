@@ -19,25 +19,16 @@ train <- training(split)
 test <- testing(split)
 
 # Model Change here
+table(train$o_bullied)
 
 fit_rf <- randomForest(o_bullied ~ ., data=train, ntree=120)
 
 #7 Plotting the Tree
 print(fit_rf)
 
-pred <- predict(rpart.tree, newdata = test, type = "class")
+pred <- predict(fit_rf, newdata = test, type = "class")
 performance_measures  <- confusionMatrix(data=pred,
                                          reference = test$o_bullied)
 #9 Printing the metrics
 performance_measures
 
-
-#3  Implementing naive bayes
-model_death_event <- naiveBayes(o_bullied ~ ., data=train)
-
-#4 & 5 Performance Evaluation
-
-pred <- predict(model_death_event, newdata = test, type = "class")
-performance_measures  <- confusionMatrix(data=pred, 
-                                         reference = test$o_bullied)
-performance_measures
