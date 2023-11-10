@@ -23,7 +23,7 @@ project_dataset$o_bullied = as.factor(project_dataset$o_bullied)
 
 # Split the dataset into training and testing sets
 set.seed(123)  # Set seed for reproducibility
-split <- initial_split(project_dataset, prop = 0.8, strata = o_bullied)  # 80% training, 20% testing
+split <- initial_split(project_dataset, prop = 0.8)  # 80% training, 20% testing
 train_data <- training(split)
 test_data <- testing(split)
 # Removing all columns which are duplicates
@@ -100,8 +100,8 @@ reject_list <- c("V2025A","V2036", "V2078","V2124","V2127B", "V2129", "V3023A", 
 train_data <- train_data[, !(names(train_data) %in% reject_list)]
 test_data <- test_data[, !(names(test_data) %in% reject_list)]
 nrow(test_data)
-write.csv(train_data,"./Models/initial_train_wo_sample.csv", row.names=FALSE)
-colnames(train_data)
+#write.csv(train_data,"./Models/initial_train_wo_sample.csv", row.names=FALSE)
+#colnames(train_data)
 
 # Perform oversampling of the minority class (SMOTE) and random undersampling of the majority class
 balanced_train_data <- ovun.sample(o_bullied ~ ., data = train_data, method = "both", p = 0.5)
@@ -113,7 +113,7 @@ colnames(balanced_train_data$data)
 View(balanced_train_data$data)
 
 table(balanced_train_data$data$o_bullied)
-# Clean Pre proccessed Dataset with 63 columns (reduced from 204)
+# Clean Pre proccessed Dataset with 42 columns (reduced from 204)
 write.csv(balanced_train_data$data,"./Models/initial_train.csv", row.names=FALSE)
 
 write.csv(test_data, "./Models/initial_test.csv", row.names = FALSE)
