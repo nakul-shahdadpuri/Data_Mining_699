@@ -38,6 +38,7 @@ clean_df <- new_df[ , !(names(new_df) %in% highly_correlated_vars)]
 columns_to_drop = c("V2025","V2120","V2121","VS0021","V2022","V2023","V2125","V2126B","V2128B","V3062","V3064", "VS0028")
 df_new <- clean_df[, !(names(clean_df) %in% columns_to_drop)]
 
+# Boruta Selection done to determine the columns to remove
 reject_list <- c("V2025A","V2036", "V2078","V2124","V2127B", "V2129", "V3023A", "V3061", "VS0019", "VS0020", "VS0036", "VS0037", "VS0038", "VS0039", "VS0041", "VS0042", "VS0043", "VS0045")
 df_new <- df_new[, !(names(df_new) %in% reject_list)]
 
