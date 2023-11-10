@@ -1,15 +1,13 @@
 library("caret")
 library("ROSE")
 
-#project_dataset <- read.csv("C:/Users/nakul/Desktop/Boston University/CS699 - Data Mining/Project/project_dataset.csv", header=TRUE)
+set.seed(123)
 project_dataset <- read.csv("./Preprocess/project_dataset.csv", header=TRUE)
 
 colnames(project_dataset)
 
-
-
 # Removing all columns which are duplicates
- 
+
 df <- project_dataset[, !duplicated(t(project_dataset))]
 
 # 5 columns were duplicates and thus were removed.
@@ -37,23 +35,26 @@ clean_df <- new_df[ , !(names(new_df) %in% highly_correlated_vars)]
 
 
 # Using Data Exploration and dropped the following columns which had a disproptionate number of null values
-
-columns_to_drop = c("V2025","V2120","V2121","VS0021","V3033","V2022","V2023","V2026","V2125","V2126B","V2128B","V3020","V3062","V3064", "VS0028", "VS0023")
+columns_to_drop = c("V2025","V2120","V2121","VS0021","V2022","V2023","V2125","V2126B","V2128B","V3062","V3064", "VS0028")
 df_new <- clean_df[, !(names(clean_df) %in% columns_to_drop)]
 
+reject_list <- c("V2025A","V2036", "V2078","V2124","V2127B", "V2129", "V3023A", "V3061", "VS0019", "VS0020", "VS0036", "VS0037", "VS0038", "VS0039", "VS0041", "VS0042", "VS0043", "VS0045")
+df_new <- df_new[, !(names(df_new) %in% reject_list)]
+
+
 # Perform oversampling of the minority class (SMOTE) and random undersampling of the majority class
-balanced_train_data <- ovun.sample(o_bullied ~ ., data = df_new, method = "both", p = 0.5)
+balanced_train_data <- ovun.sample(o_bullied ~ ., data = df_new, method = "both", p = 0.4)
 
 # Check class distribution in the balanced training set
 table(balanced_train_data$data$o_bullied)
 
-colnames(df_new)
-View(df_new)
+length(colnames(df_new))
+
 
 # Sampling
 
-# Clean Pre proccessed Dataset with 63 columns (reduced from 204)
-write.csv(balanced_train_data$data,"./Models/clean_dataset.csv", row.names=FALSE)
+# Clean Pre proccessed Dataset with 38 columns (reduced from 204)
+write.csv(balanced_train_data$data,"./Datasets/preprocessed_dataset.csv", row.names=FALSE)
 
 
 

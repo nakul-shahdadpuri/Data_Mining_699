@@ -2,8 +2,8 @@ library(rpart)
 library(rpart.plot)
 
 # Load the preprocessed datasets
-preprocessed_train_data <- read.csv("./Models/initial_train.csv", header=TRUE)
-preprocessed_test_data <- read.csv("./Models/initial_test.csv", header=TRUE)
+preprocessed_train_data <- read.csv("./Datasets/initial_train.csv", header=TRUE)
+preprocessed_test_data <- read.csv("./Datasets/initial_test.csv", header=TRUE)
 
 # Ensure the target variable is a factor
 preprocessed_train_data$o_bullied <- as.factor(preprocessed_train_data$o_bullied)

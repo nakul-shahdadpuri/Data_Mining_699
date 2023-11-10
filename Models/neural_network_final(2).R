@@ -17,11 +17,11 @@ library(randomForest)
 library(neuralnet)  # Add the neuralnet library
 
 # Load the dataset and prepare it
-clean_dataset <- read.csv("./Preprocess/clean_dataset.csv", header=TRUE)
+clean_dataset <- read.csv("./Datasets/preprocessed_dataset.csv", header=TRUE)
 clean_dataset$o_bullied = as.factor(clean_dataset$o_bullied)
 
 # Split the data
-set.seed(69)
+set.seed(123)
 split <- initial_split(clean_dataset, prop = 0.80, strata = o_bullied)
 train <- training(split)
 

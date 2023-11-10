@@ -13,10 +13,10 @@ library(randomForest)
 library(ROSE)
 
 # Load your preprocessed and oversampled training set
-train_data <- read.csv("./Models/initial_train.csv", header=TRUE)
+train_data <- read.csv("./Datasets/initial_train.csv", header=TRUE)
 
 # Load your preprocessed testing set
-test_data <- read.csv("./Models/initial_test.csv", header=TRUE)
+test_data <- read.csv("./Datasets/initial_test.csv", header=TRUE)
 
 
 # Check class distribution in the training set
